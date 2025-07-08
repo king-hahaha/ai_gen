@@ -34,6 +34,10 @@ async def get_tables():
     except Exception as e:
         return {"error": str(e)}
 
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Database Service. Please use /api/tables endpoint."}
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

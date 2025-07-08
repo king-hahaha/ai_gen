@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const fetchTables = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/tables');
+        const response = await fetch('http://localhost:8001/api/tables');
         const data = await response.json();
         if (data.tables) {
           setSourceTables(data.tables);
@@ -25,11 +25,22 @@ function App() {
   }, []);
   
   // 目标结果库选项
-  const targetDbs = [
-    { label: '风险数据集市', value: 'RISK_DATA_MART' },
-    { label: '风险数据仓库', value: 'RISK_DATA_WAREHOUSE' },
-    { label: '风险分析平台', value: 'RISK_ANALYSIS_PLATFORM' },
-  ];
+  const [targetDbs, setTargetDbs] = useState([]);
+
+  useEffect(() => {
+    const fetchDatabases = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/mysql_databases');
+        const data = await response.json();
+        if (data.databases) {
+          setTargetDbs(data.databases.map(db => ({ label: db, value: db })));
+        }
+      } catch (error) {
+        console.error('获取目标结果库失败:', error);
+      }
+    };
+    fetchDatabases();
+  }, []);
 
   const onFinish = (values) => {
     console.log('配置提交:', values);
