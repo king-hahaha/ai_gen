@@ -1,0 +1,35 @@
+:root {
+  --form-label-color: #333;
+  --form-input-bg: #f5f9ff;
+  --form-input-border: 1px solid var(--bank-blue);
+  --form-input-text: #333;
+  --btn-primary-bg: var(--bank-blue);
+  --btn-primary-border: var(--bank-blue);
+  --btn-hover-bg: var(--secondary-color);
+  --btn-hover-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+}
+
+.label {
+  color: var(--form-label-color) !important;
+}
+
+.input {
+  background-color: var(--form-input-bg) !important;
+  border: var(--form-input-border) !important;
+  color: var(--form-input-text) !important;
+}
+
+.icon {
+  color: var(--form-input-text) !important;
+}
+
+.primaryBtn {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-border);
+  font-weight: bold;
+}
+
+.primaryBtn:hover {
+  background: var(--btn-hover-bg);
+  box-shadow: var(--btn-hover-shadow);
+}
