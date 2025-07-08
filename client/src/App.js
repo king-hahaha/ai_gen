@@ -42,15 +42,33 @@ function App() {
     fetchDatabases();
   }, []);
 
-  const onFinish = (values) => {
-    console.log('配置提交:', values);
-    // 这里可以添加数据同步API调用
+  const onFinish = async (values) => {
+    try {
+      const response = await fetch('http://localhost:8001/api/sync_table', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          source_table: values.sourceTable,
+          target_db: values.targetDb
+        })
+      });
+      const result = await response.json();
+      if (result.error) {
+        console.error('同步失败:', result.error);
+      } else {
+        console.log('同步成功:', result.message);
+      }
+    } catch (error) {
+      console.error('同步请求失败:', error);
+    }
   };
 
   return (
     <div className={styles.container}>
       <img src="/bank-logo.png" alt="辽宁振兴银行" className={styles.logo} />
-      <h1 className={styles.title}>银行风险数据同步配置</h1>
+      <h1 className={styles.title}>风险数据同步配置</h1>
       <Form
         form={form}
         layout="vertical"
